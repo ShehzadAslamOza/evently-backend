@@ -1,9 +1,14 @@
 require("dotenv").config();
 const express = require("express");
 const errorHandler = require("./middleware/errorHandler");
+const mongoose = require("mongoose");
+const connectDB = require("./config/connectDB");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+// Connecting to MongoDB
+connectDB();
 
 // Express middleware for parsing URL-encoded form data
 app.use(express.urlencoded({ extended: false }));
@@ -17,6 +22,9 @@ app.use("/auth", require("./routes/auth"));
 // error handler
 app.use(errorHandler);
 
-app.listen(PORT, () => {
-  console.log(`The server is listening at port ${PORT}`);
+mongoose.connection.once("open", () => {
+  console.log("Connected to MongoDB");
+  app.listen(PORT, () => {
+    console.log(`The server is listening at port ${PORT}`);
+  });
 });
