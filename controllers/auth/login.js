@@ -52,7 +52,7 @@ const login = asyncHandler(async (req, res, next) => {
         email: foundUser.email,
       },
     },
-    process.env.ACCESS_TOKEN_SECRET,
+    process.env.REFRESH_TOKEN_SECRET,
     { expiresIn: "1d" }
   );
 
