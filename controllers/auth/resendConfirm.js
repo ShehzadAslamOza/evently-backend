@@ -13,14 +13,14 @@ const resendConfirm = asyncHandler(async (req, res, next) => {
   }
 
   // checking if the user exists
-  const findUser = await User.findOne({ email }).exec();
+  const foundUser = await User.findOne({ email }).exec();
 
-  if (!findUser) {
+  if (!foundUser) {
     res.status(StatusCodes.NOT_FOUND).json({ msg: "User doesn't exist" });
   }
 
   // If the user is already in active state donot resend
-  if (findUser.status === "Active") {
+  if (foundUser.status === "Active") {
     res.status(StatusCodes.UNAUTHORIZED).json({ msg: "User already active" });
   }
 
@@ -35,8 +35,8 @@ const resendConfirm = asyncHandler(async (req, res, next) => {
     }
   );
 
-  findUser.confirmationCode = confirmationCode;
-  const result = await findUser.save();
+  foundUser.confirmationCode = confirmationCode;
+  const result = await foundUser.save();
 
   console.log(result);
 
