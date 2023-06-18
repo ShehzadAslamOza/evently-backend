@@ -38,7 +38,7 @@ const refreshToken = asyncHandler(async (req, res, next) => {
       { expiresIn: "60s" }
     );
 
-    res.json({ accessToken });
+    return res.json({ accessToken });
   });
 });
 

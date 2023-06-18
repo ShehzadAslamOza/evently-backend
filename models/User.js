@@ -24,7 +24,6 @@ const userSchema = new Schema({
   },
   confirmationCode: {
     type: String,
-    unique: true,
   },
   status: {
     type: String,

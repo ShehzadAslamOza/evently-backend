@@ -22,7 +22,7 @@ const logout = asyncHandler(async (req, res, next) => {
   await foundUser.save();
 
   res.clearCookie("jwt", { httpOnly: true });
-  res.sendStatus(StatusCodes.NO_CONTENT);
+  return res.sendStatus(StatusCodes.NO_CONTENT);
 });
 
 module.exports = {
