@@ -66,7 +66,7 @@ const login = asyncHandler(async (req, res, next) => {
     maxAge: 24 * 60 * 60 * 1000,
   });
 
-  res.status(StatusCodes.OK).json({ accessToken });
+  return res.status(StatusCodes.OK).json({ accessToken });
 });
 
 module.exports = { login };
