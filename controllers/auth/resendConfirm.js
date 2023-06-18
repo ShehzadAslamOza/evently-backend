@@ -7,7 +7,7 @@ const resendConfirm = asyncHandler(async (req, res, next) => {
   const { email } = req.body;
 
   if (!email) {
-    res
+    return res
       .status(StatusCodes.BAD_REQUEST)
       .json({ msg: "Please provide your email" });
   }
@@ -16,12 +16,16 @@ const resendConfirm = asyncHandler(async (req, res, next) => {
   const foundUser = await User.findOne({ email }).exec();
 
   if (!foundUser) {
-    res.status(StatusCodes.NOT_FOUND).json({ msg: "User doesn't exist" });
+    return res
+      .status(StatusCodes.NOT_FOUND)
+      .json({ msg: "User doesn't exist" });
   }
 
   // If the user is already in active state donot resend
   if (foundUser.status === "Active") {
-    res.status(StatusCodes.UNAUTHORIZED).json({ msg: "User already active" });
+    return res
+      .status(StatusCodes.UNAUTHORIZED)
+      .json({ msg: "User already active" });
   }
 
   // resend the code
@@ -42,7 +46,9 @@ const resendConfirm = asyncHandler(async (req, res, next) => {
 
   // send email
 
-  res.status(StatusCodes.OK).json({ msg: "Code resent, check your email" });
+  return res
+    .status(StatusCodes.OK)
+    .json({ msg: "Code resent, check your email" });
 });
 
 module.exports = { resendConfirm };

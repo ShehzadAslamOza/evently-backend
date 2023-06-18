@@ -46,7 +46,8 @@ const register = asyncHandler(async (req, res, next) => {
   console.log(result);
 
   // send email
-  res.status(StatusCodes.OK).json({
+
+  return res.status(StatusCodes.OK).json({
     msg: `new user ${firstName + " " + lastName + "{" + email + ") created"}`,
   });
 });

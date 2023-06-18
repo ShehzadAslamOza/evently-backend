@@ -11,7 +11,7 @@ const confirmEmail = asyncHandler(async (req, res, next) => {
 
   // checking if the user exists
   if (!foundUser) {
-    res.status(StatusCodes.NOT_FOUND).json({ msg: "User Not found" });
+    return res.status(StatusCodes.NOT_FOUND).json({ msg: "User Not found" });
   }
 
   let status = StatusCodes.OK;
@@ -33,7 +33,7 @@ const confirmEmail = asyncHandler(async (req, res, next) => {
     await foundUser.save();
   }
 
-  res.sendStatus(status);
+  return res.sendStatus(status);
 });
 
 module.exports = { confirmEmail };
