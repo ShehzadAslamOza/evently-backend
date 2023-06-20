@@ -3,6 +3,7 @@ const { StatusCodes } = require("http-status-codes");
 const User = require("../../models/User");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const { sendConfirmationEmail } = require("../../config/nodemailer.config");
 
 const register = asyncHandler(async (req, res, next) => {
   const { firstName, lastName, email, password } = req.body;
@@ -46,6 +47,11 @@ const register = asyncHandler(async (req, res, next) => {
   console.log(result);
 
   // send email
+  sendConfirmationEmail(
+    result.email,
+    result.firstName,
+    result.confirmationCode
+  );
 
   return res.status(StatusCodes.OK).json({
     msg: `new user ${firstName + " " + lastName + "{" + email + ") created"}`,

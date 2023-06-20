@@ -2,6 +2,7 @@ const asyncHandler = require("express-async-handler");
 const { StatusCodes } = require("http-status-codes");
 const User = require("../../models/User");
 const jwt = require("jsonwebtoken");
+const { sendConfirmationEmail } = require("../../config/nodemailer.config");
 
 const resendConfirm = asyncHandler(async (req, res, next) => {
   const { email } = req.body;
@@ -45,6 +46,12 @@ const resendConfirm = asyncHandler(async (req, res, next) => {
   console.log(result);
 
   // send email
+
+  sendConfirmationEmail(
+    result.email,
+    result.firstName,
+    result.confirmationCode
+  );
 
   return res
     .status(StatusCodes.OK)

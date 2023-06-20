@@ -7,7 +7,7 @@ router.route("/login").post(authController.login);
 router.route("/register").post(authController.register);
 router.route("/confirm/:confirmationCode").get(authController.confirmEmail);
 router.route("/logout").get(authController.logout);
-router.route("/forgotPassword").get(authController.forgotPassword);
+router.route("/forgotPassword").post(authController.forgotPassword);
 router.route("/refresh").get(authController.refreshToken);
 router.route("/confirm/resend").post(authController.resendConfirm);
 

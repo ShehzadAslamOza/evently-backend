@@ -25,6 +25,9 @@ const userSchema = new Schema({
   confirmationCode: {
     type: String,
   },
+  forgotToken: {
+    type: String,
+  },
   status: {
     type: String,
     enum: ["Pending", "Active"],

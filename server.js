@@ -4,12 +4,26 @@ const errorHandler = require("./middleware/errorHandler");
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 const connectDB = require("./config/connectDB");
+const cors = require("cors");
+const corsOptions = require("./config/corsOptions");
+const credentials = require("./middleware/credentials");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Connecting to MongoDB
 connectDB();
+
+// // Handle options credentials check - before CORS
+// // and fetch cookies credentials requirement
+app.use(credentials);
+
+// Cross Origin Resource Sharing
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 // Express middleware for parsing URL-encoded form data
 app.use(express.urlencoded({ extended: false }));
