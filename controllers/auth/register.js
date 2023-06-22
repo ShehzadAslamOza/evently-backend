@@ -54,7 +54,11 @@ const register = asyncHandler(async (req, res, next) => {
   );
 
   return res.status(StatusCodes.OK).json({
-    msg: `new user ${firstName + " " + lastName + "{" + email + ") created"}`,
+    _id: result._id,
+    firstName,
+    lastName,
+    email,
+    status: result.status
   });
 });
 

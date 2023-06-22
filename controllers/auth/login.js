@@ -30,19 +30,20 @@ const login = asyncHandler(async (req, res, next) => {
 
   if (foundUser.status !== "Active") {
     return res
-      .status(StatusCodes.UNAUTHORIZED)
-      .json({ msg: "Pending Account, Please Verify your Email" });
+      .status(StatusCodes.PARTIAL_CONTENT)
+      .json({ firstName: foundUser.firstName, lastName: foundUser.lastName, email: foundUser.email, status: foundUser.status});
   }
 
   // JWT Tokens
   const accessToken = jwt.sign(
     {
       UserInfo: {
+        _id: foundUser._id,
         email: foundUser.email,
       },
     },
     process.env.ACCESS_TOKEN_SECRET,
-    { expiresIn: "60s" }
+    { expiresIn: "30d" }
   );
 
   // Refresh Tokens
@@ -53,7 +54,7 @@ const login = asyncHandler(async (req, res, next) => {
       },
     },
     process.env.REFRESH_TOKEN_SECRET,
-    { expiresIn: "1d" }
+    { expiresIn: "30d" }
   );
 
   // setting refresh token
@@ -66,7 +67,8 @@ const login = asyncHandler(async (req, res, next) => {
     maxAge: 24 * 60 * 60 * 1000,
   });
 
-  return res.status(StatusCodes.OK).json({ accessToken });
+  return res.status(StatusCodes.OK).json(
+    {_id: foundUser._id, firstName: foundUser.firstName, lastName: foundUser.lastName, email: foundUser.email, status: foundUser.status,accessToken });
 });
 
 module.exports = { login };

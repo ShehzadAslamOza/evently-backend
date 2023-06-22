@@ -33,7 +33,8 @@ const confirmEmail = asyncHandler(async (req, res, next) => {
     await foundUser.save();
   }
 
-  return res.sendStatus(status);
+  
+  return res.redirect("http://localhost:3000/login");
 });
 
 module.exports = { confirmEmail };

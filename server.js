@@ -19,11 +19,7 @@ connectDB();
 app.use(credentials);
 
 // Cross Origin Resource Sharing
-app.use(
-  cors({
-    origin: "*",
-  })
-);
+app.use(cors(corsOptions));
 
 // Express middleware for parsing URL-encoded form data
 app.use(express.urlencoded({ extended: false }));
@@ -36,6 +32,7 @@ app.use(cookieParser());
 
 // routes
 app.use("/auth", require("./routes/auth"));
+app.use("/event", require("./routes/event"));
 
 // error handler
 app.use(errorHandler);

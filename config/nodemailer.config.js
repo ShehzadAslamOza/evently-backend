@@ -21,7 +21,7 @@ const sendConfirmationEmail = (email, name, confirmationCode) => {
       html: `<h1>Email Confirmation</h1>
           <h2>Hello ${name}</h2>
           <p>Thank you for subscribing. Please confirm your email by clicking on the following link</p>
-          <a href=http://localhost:3000/auth/confirm/${confirmationCode}> Click Here</a>
+          <a href=http://localhost:3001/auth/confirm/${confirmationCode}> Click Here</a>
           </div>`,
     })
     .catch((err) => console.log(err));
@@ -37,7 +37,7 @@ const resetEmail = (email, name, resetCode) => {
       html: `<h1>Reset Password</h1>
             <h2>Hello ${name}</h2>
             <p>Please reset your password by clicking the link</p>
-            <a href=http://localhost:6000/auth/confirm/${resetCode}> Click Here</a>
+            <a href=http://localhost:3001/auth/confirm/${resetCode}> Click Here</a>
             </div>`,
     })
     .catch((err) => console.log(err));
