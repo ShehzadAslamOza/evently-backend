@@ -43,4 +43,19 @@ const resetEmail = (email, name, resetCode) => {
     .catch((err) => console.log(err));
 };
 
-module.exports = { sendConfirmationEmail, resetEmail };
+const dailyMail = (email, name) => {
+  console.log("Check");
+  transport
+    .sendMail({
+      from: user,
+      to: email,
+      subject: "New Places",
+      html: `<h1>More existing places to visit</h1>
+            <h2>Hello ${name}</h2>
+            <p>Please visit the site for more exciting places</p>
+            </div>`,
+    })
+    .catch((err) => console.log(err));
+};
+
+module.exports = { sendConfirmationEmail, resetEmail,dailyMail };

@@ -1,4 +1,5 @@
 require("dotenv").config();
+const scheduledEmail = require("./middleware/cronEmailSender")
 const express = require("express");
 const errorHandler = require("./middleware/errorHandler");
 const cookieParser = require("cookie-parser");
@@ -34,8 +35,13 @@ app.use(cookieParser());
 app.use("/auth", require("./routes/auth"));
 app.use("/event", require("./routes/event"));
 
+//cronjob
+scheduledEmail()
+
 // error handler
 app.use(errorHandler);
+
+
 
 mongoose.connection.once("open", () => {
   console.log("Connected to MongoDB");
