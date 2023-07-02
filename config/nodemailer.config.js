@@ -21,7 +21,7 @@ const sendConfirmationEmail = (email, name, confirmationCode) => {
       html: `<h1>Email Confirmation</h1>
           <h2>Hello ${name}</h2>
           <p>Thank you for subscribing. Please confirm your email by clicking on the following link</p>
-          <a href=http://localhost:3001/auth/confirm/${confirmationCode}> Click Here</a>
+          <a href=https://evently-backend.vercel.app/auth/confirm/${confirmationCode}> Click Here</a>
           </div>`,
     })
     .catch((err) => console.log(err));
@@ -58,4 +58,4 @@ const dailyMail = (email, name) => {
     .catch((err) => console.log(err));
 };
 
-module.exports = { sendConfirmationEmail, resetEmail,dailyMail };
+module.exports = { sendConfirmationEmail, resetEmail, dailyMail };
