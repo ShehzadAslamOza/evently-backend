@@ -47,18 +47,18 @@ const register = asyncHandler(async (req, res, next) => {
   console.log(result);
 
   // send email
-  sendConfirmationEmail(
-    result.email,
-    result.firstName,
-    result.confirmationCode
-  );
+  // sendConfirmationEmail(
+  //   result.email,
+  //   result.firstName,
+  //   result.confirmationCode
+  // );
 
   return res.status(StatusCodes.OK).json({
     _id: result._id,
     firstName,
     lastName,
     email,
-    status: result.status
+    status: result.status,
   });
 });
 
