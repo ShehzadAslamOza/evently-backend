@@ -13,19 +13,18 @@ const getAllEvents = asyncHandler(async (req, res) => {
 });
 
 const getMyEvents = asyncHandler(async (req, res) => {
-    const events = await Event.find({user: req.user._id});
-  
-    res.status(200).json(events);
-  });
+  const events = await Event.find({ user: req.user._id });
+
+  res.status(200).json(events);
+});
 
 // @desc    Set goal
 // @route   POST /api/goals
 // @access  Private
 const setEvent = asyncHandler(async (req, res) => {
+  const { title, description, location, city, date, time } = req.body;
 
-    const {title,description,location,city,date,time} = req.body;
-
-  if (!title||!description||!location||!city||!date||!time) {
+  if (!title || !description || !location || !city || !date || !time) {
     res.status(400);
     throw new Error("Please provide all fields");
   }
@@ -37,7 +36,7 @@ const setEvent = asyncHandler(async (req, res) => {
     location,
     city,
     date,
-    time
+    time,
   });
 
   res.status(200).json(event);
@@ -77,8 +76,8 @@ const updateEvent = asyncHandler(async (req, res) => {
 // @route   DELETE /api/goals/:id
 // @access  Private
 const deleteEvent = asyncHandler(async (req, res) => {
-  const event = await Event.findById(req.params.id);
-
+  const event = await Event.findById({ _id: req.params.id });
+  console.log(req.params.id);
   if (!event) {
     res.status(400);
     throw new Error("Goal not found");
@@ -106,5 +105,5 @@ module.exports = {
   setEvent,
   updateEvent,
   deleteEvent,
-  getMyEvents
+  getMyEvents,
 };
