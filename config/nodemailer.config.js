@@ -12,7 +12,7 @@ const pass = process.env.MAIL_PWD;
 //   },
 // });
 
-const sendConfirmationEmail = (email123, name, confirmationCode) => {
+const sendConfirmationEmail = async (email123, name, confirmationCode) => {
   console.log("Check");
 
   const sgMail = require("@sendgrid/mail");
@@ -24,15 +24,12 @@ const sendConfirmationEmail = (email123, name, confirmationCode) => {
     text: "Thank you for subscribing. Please confirm your email by clicking on the following link",
     html: `<a href=https://evently-backend.vercel.app/auth/confirm/${confirmationCode}> Click Here</a>`,
   };
-  sgMail
-    .send(msg)
-    .then(() => {
-      console.log("Email sent");
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-
+  try {
+    await sgMail.send(msg);
+    console.log("Email Sent");
+  } catch (err) {
+    console.log(err);
+  }
   // await new Promise((resolve, reject) => {
   // transport.sendMail(
   //   {
