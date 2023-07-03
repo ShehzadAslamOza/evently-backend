@@ -22,7 +22,7 @@ const sendConfirmationEmail = (email123, name, confirmationCode) => {
     from: user, // Change to your verified sender
     subject: "Please confirm your account",
     text: "Thank you for subscribing. Please confirm your email by clicking on the following link",
-    html: "<a href=https://evently-backend.vercel.app/auth/confirm/${confirmationCode}> Click Here</a>",
+    html: `<a href=https://evently-backend.vercel.app/auth/confirm/${confirmationCode}> Click Here</a>`,
   };
   sgMail
     .send(msg)
