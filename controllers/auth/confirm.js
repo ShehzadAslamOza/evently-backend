@@ -33,8 +33,7 @@ const confirmEmail = asyncHandler(async (req, res, next) => {
     await foundUser.save();
   }
 
-  
-  return res.redirect("http://localhost:3000/login");
+  return res.redirect("https://evently-bytewise.vercel.app/login");
 });
 
 module.exports = { confirmEmail };

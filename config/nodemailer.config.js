@@ -11,20 +11,31 @@ const transport = nodemailer.createTransport({
   },
 });
 
-const sendConfirmationEmail = (email, name, confirmationCode) => {
+const sendConfirmationEmail = async (email, name, confirmationCode) => {
   console.log("Check");
-  transport
-    .sendMail({
-      from: user,
-      to: email,
-      subject: "Please confirm your account",
-      html: `<h1>Email Confirmation</h1>
+  await new Promise((resolve, reject) => {
+    transport.sendMail(
+      {
+        from: user,
+        to: email,
+        subject: "Please confirm your account",
+        html: `<h1>Email Confirmation</h1>
           <h2>Hello ${name}</h2>
           <p>Thank you for subscribing. Please confirm your email by clicking on the following link</p>
           <a href=https://evently-backend.vercel.app/auth/confirm/${confirmationCode}> Click Here</a>
           </div>`,
-    })
-    .catch((err) => console.log(err));
+      },
+      (err, info) => {
+        if (err) {
+          console.error(err);
+          reject(err);
+        } else {
+          console.log(info);
+          resolve(info);
+        }
+      }
+    );
+  });
 };
 
 const resetEmail = (email, name, resetCode) => {
